@@ -30,6 +30,15 @@ while read -r line; do
     else
       xdg-open "https://www.example.com/deadlock-detected?pid=$pid&command=$command&state=$state"
     fi
+
+  else
+    if [[ "$desktop_environment" == "gnome" ]]; then
+      notify-send "Deadlock Not Detected"
+    elif [[ "$desktop_environment" == "kde" ]]; then
+      kdialog --title "Deadlock Not Detected" --passivepopup "Deadlock Not Detected" 5
+    else
+      xdg-open "https://mentalaware.netlify.app/"
+    fi
   fi
 done <<< "$processes"
 
